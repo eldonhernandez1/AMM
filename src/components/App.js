@@ -45,14 +45,14 @@ function App() {
     <Container>
       <Navigation account={account} />
 
-      <h1 className='my-4 text-center'>React Hardhat Template</h1>
+      <h1 className='my-4 text-center text-white'>Kalina Automated Market Maker</h1>
 
       {isLoading ? (
         <Loading />
       ) : (
         <>
-          <p className='text-center'><strong>Your ETH Balance:</strong> {balance} ETH</p>
-          <p className='text-center'>Edit App.js to add your code here.</p>
+          <p className='text-center text-white'><strong>Your ETH Balance:</strong> {balance} ETH</p>
+          <p className='text-center text-white'>Edit App.js to add your code here.</p>
         </>
       )}
     </Container>
