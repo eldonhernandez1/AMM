@@ -4,6 +4,11 @@ pragma solidity ^0.8.0;
 import "hardhat/console.sol";
 import "./Token.sol";
 
+// [X] Manage Pool
+// [X] Manage Deposits
+// [-] Facilate Swaps (i.e. Trades)
+// [X]  Manage Withdrawals
+
 contract AMM {
    Token public Token1;
    Token public Token2;
@@ -27,7 +32,7 @@ contract AMM {
     uint256 timestamps
    );
 
-   constructor(Token _token1, Token _token2, Token _token3) {
+   constructor(Token _token1, Token _token2) {
     Token1 = _token1;
     Token2 = _token2;
 
@@ -38,7 +43,7 @@ contract AMM {
     totalShares = 0;
    }
 
-   function addLiquidity(uint256 _token1Amount, uint256 _token2Amount, uint256 _token3Amount) external {
+   function addLiquidity(uint256 _token1Amount, uint256 _token2Amount) external {
     // Deposit Tokens
     require(Token1.transferFrom(msg.sender, address(this), _token1Amount), "failed to transfer token 1");
     require(Token2.transferFrom(msg.sender, address(this), _token2Amount), "failed to transfer token 2");
@@ -104,7 +109,7 @@ contract AMM {
 
         require(token2Amount < token2Balance, "swap amount is too large");
     }
-
+    // Token1 Functionality
     function swapToken1(uint256 _token1Amount) 
         external 
         returns(uint256 token2Amount)
@@ -125,14 +130,61 @@ contract AMM {
         // Emit an event
         emit Swap(
             msg.sender,
-            address(token1),
+            address(Token1),
             _token1Amount,
-            address(token2),
-            _token2Amount,
+            address(Token2),
+            token2Amount,
             token1Balance,
             token2Balance,
             block.timestamp
-
         );
     }
+    // Returns amount of token1 received when swapping token2
+    function calculateToken2Swap(uint256 _token2Amount) 
+        public
+        view
+        returns (uint256 token1Amount)
+    { 
+        uint256 token2After = token2Balance + _token2Amount;
+        uint256 token1After = K / token2After;
+        token1After = token1Balance - token1After;
+
+        // Don't let pool go to zero
+        if(token1Amount == token1Balance) {
+            token1Amount --;
+        }
+
+        require(token1Amount < token1Balance, "swap amount is too large");
+    }
+    // Token 2 Functionality
+     function swapToken2(uint256 _token2Amount) 
+        external 
+        returns(uint256 token1Amount)
+    {
+        // Calculate Token 1 Amount
+        token1Amount = calculateToken2Swap(_token2Amount);
+
+        // Do the swap
+        // 1. Transfer tokens out of user wallet
+        Token2.transferFrom(msg.sender, address(this), _token2Amount);
+        // 2. Update the token balance in the contract
+        token2Balance += _token2Amount;
+        // 3. Update the token2 balance in the contract
+        token1Balance -= token1Amount;
+        // 4. Transfer token2 tokens from contract to user wallet
+        Token1.transfer(msg.sender, token1Amount);
+
+        // Emit an event
+        emit Swap(
+            msg.sender,
+            address(Token2),
+            _token2Amount,
+            address(Token1),
+            token1Amount,
+            token1Balance,
+            token2Balance,
+            block.timestamp
+        );
+    }
+   
 }
