@@ -11,12 +11,20 @@ async function main() {
   const SYMBOL = 'KAL'
   const MAX_SUPPLY = '1000000'
 
-  // Deploy Token
-  const Token = await hre.ethers.getContractFactory('Token')
-  let token = await Token.deploy(NAME, SYMBOL, MAX_SUPPLY)
+  // Deploy Token 1 
+  let kalina = await token.deploy('Kalina Token', 'KAL', '1000000') // 1 million tokens
+  await kal.deployed()
+  console.log(`Kalina Token deployed to: ${kalina.address}\n`)
 
-  await token.deployed()
-  console.log(`Token deployed to: ${token.address}\n`)
+  // Deploy Token 2 
+  let dapp = await token.deploy('Dapp University', 'DAPP', '1000000') // 1 million tokens
+  await dapp.deployed()
+  console.log(`Dapp University Token deployed to: ${dapp.address}\n`)
+
+  // Deploy AMM
+  const AMM = await hre.ethers.getContractFactory('AMM')
+  const amm = await AMM.deploy(kal.address, dapp.address)
+  console.log(`AMM deployed to: ${amm.address}\n`)
 }
 
 // We recommend this pattern to be able to use async/await everywhere
