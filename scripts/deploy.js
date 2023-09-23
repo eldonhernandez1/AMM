@@ -7,17 +7,15 @@
 const hre = require("hardhat");
 
 async function main() {
-  const NAME = 'Kalina'
-  const SYMBOL = 'KAL'
-  const MAX_SUPPLY = '1000000'
+  const Token = await hre.ethers.getContractFactory('Token')
 
   // Deploy Token 1 
-  let kalina = await token.deploy('Kalina Token', 'KAL', '1000000') // 1 million tokens
+  let kal = await Token.deploy('Kalina Token', 'KAL', '1000000') // 1 million tokens
   await kal.deployed()
-  console.log(`Kalina Token deployed to: ${kalina.address}\n`)
+  console.log(`Kalina Token deployed to: ${kal.address}\n`)
 
   // Deploy Token 2 
-  let dapp = await token.deploy('Dapp University', 'DAPP', '1000000') // 1 million tokens
+  let dapp = await Token.deploy('Dapp University', 'DAPP', '1000000') // 1 million tokens
   await dapp.deployed()
   console.log(`Dapp University Token deployed to: ${dapp.address}\n`)
 
