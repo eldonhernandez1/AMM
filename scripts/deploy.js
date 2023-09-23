@@ -7,8 +7,8 @@
 const hre = require("hardhat");
 
 async function main() {
-  const NAME = 'Dapp University'
-  const SYMBOL = 'DAPP'
+  const NAME = 'Kalina'
+  const SYMBOL = 'KAL'
   const MAX_SUPPLY = '1000000'
 
   // Deploy Token
