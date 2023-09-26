@@ -1,10 +1,14 @@
 import { useEffect, useState } from 'react'
-import { Container } from 'react-bootstrap'
+import { Container, Row } from 'react-bootstrap'
 import { ethers } from 'ethers'
 
 // Components
 import Navigation from './Navigation';
 import Loading from './Loading';
+import Card from './Card';
+
+// Hero image
+import Hero from '../images/kalina_AMM_hero.jpg'
 
 // ABIs: Import your contract ABIs here
 // import TOKEN_ABI from '../abis/Token.json'
@@ -44,17 +48,21 @@ function App() {
   return(
     <Container>
       <Navigation account={account} />
-
-      <h1 className='my-4 text-center text-white'>Kalina Automated Market Maker</h1>
-
+      <Row>
+        <img src={Hero} style={{ borderRadius: '15px' }} alt="KalinaSwap Hero"/>
+      </Row>
+      <h1 className='my-4 p-4 text-center text-warning'>Easily swap tokens</h1>
+      <Card />
       {isLoading ? (
         <Loading />
+        
       ) : (
         <>
-          <p className='text-center text-white'><strong>Your ETH Balance:</strong> {balance} ETH</p>
-          <p className='text-center text-white'>Edit App.js to add your code here.</p>
+          <p className='text-center text-white my-4'><strong>Your ETH Balance:</strong> {balance} ETH</p>
+          <p className='text-center text-white my-4'>Edit App.js to add your code here.</p>
         </>
       )}
+      
     </Container>
   )
 }

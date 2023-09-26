@@ -95,7 +95,6 @@ async function main() {
     ///////////////////////////////////////
 
     console.log(`Investor 2 Swaps... \n`)
-
     // Investor approves all tokens
     transaction = await dapp.connect(investor2).approve(amm.address, tokens(10))
     await transaction.wait()
@@ -130,7 +129,7 @@ async function main() {
     await transaction.wait()
 
     // Investor swaps 5 tokens
-    transaction = await dapp.connect(investor4).swapToken2(amm.address, tokens(5));
+    transaction = await amm.connect(investor4).swapToken2(amm.address, tokens(5));
     await transaction.wait()
 
     console.log(`Finished. \n`)
