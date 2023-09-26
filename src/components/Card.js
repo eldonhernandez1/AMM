@@ -12,7 +12,7 @@ function BasicExample() {
         <BootstrapCard style={{ width: '18rem' }} className='mx-auto'>
           <BootstrapCard.Img variant="top" src={SwapImage} />
           <BootstrapCard.Body>
-            <BootstrapCard.Title>Swapping Tokens is very simple</BootstrapCard.Title>
+            <BootstrapCard.Title>Simple token swapping</BootstrapCard.Title>
             <BootstrapCard.Text>
             With just a few easy steps, your token swap is moments away from completion.
             </BootstrapCard.Text>
@@ -23,7 +23,7 @@ function BasicExample() {
         <BootstrapCard style={{ width: '18rem' }} className='mx-auto'>
           <BootstrapCard.Img variant="top" src={WalletImage} />
           <BootstrapCard.Body>
-            <BootstrapCard.Title>Swap over thousands of tokens</BootstrapCard.Title>
+            <BootstrapCard.Title>Swap thousands of tokens</BootstrapCard.Title>
             <BootstrapCard.Text>
               With the constant expansion of the Crypto ecosystem. You can swap your favorite tokens for new ones.
             </BootstrapCard.Text>

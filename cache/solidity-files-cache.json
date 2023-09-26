@@ -2,7 +2,7 @@
   "_format": "hh-sol-cache-2",
   "files": {
     "/Users/eldonhernandez/Dapp University Projects/AMM/contracts/AMM.sol": {
-      "lastModificationDate": 1695507321184,
+      "lastModificationDate": 1695508883368,
       "contentHash": "44627d489441339796668760f44936dd",
       "sourceName": "contracts/AMM.sol",
       "solcConfig": {
@@ -75,8 +75,8 @@
       ]
     },
     "/Users/eldonhernandez/Dapp University Projects/AMM/contracts/Token.sol": {
-      "lastModificationDate": 1694790911234,
-      "contentHash": "65d92a70fac1758b16dd2356fe0f8f53",
+      "lastModificationDate": 1695754992229,
+      "contentHash": "b47d047aafd016e5246771bfc9e5f7da",
       "sourceName": "contracts/Token.sol",
       "solcConfig": {
         "version": "0.8.9",
