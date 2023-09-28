@@ -39,19 +39,19 @@ async function main() {
 	let transaction
 
 	// Send Kalina tokens to investor 1
-	transaction = await kal.connect(deployer).transfer(investor1.address, tokens(10))
+	transaction = await dapp.connect(deployer).transfer(investor1.address, tokens(10))
 	await transaction.wait()
 
 	// Send Dapp tokens to investor 2
-	transaction = await dapp.connect(deployer).transfer(investor2.address, tokens(10))
+	transaction = await kal.connect(deployer).transfer(investor2.address, tokens(10))
 	await transaction.wait()
 
 	// Send Kalina tokens to investor 3
-	transaction = await kal.connect(deployer).transfer(investor3.address, tokens(10))
+	transaction = await dapp.connect(deployer).transfer(investor3.address, tokens(10))
 	await transaction.wait()
 
 	// Send Dapp tokens to investor 4
-	transaction = await dapp.connect(deployer).transfer(investor4.address, tokens(10))
+	transaction = await kal.connect(deployer).transfer(investor4.address, tokens(10))
 	await transaction.wait()
 
 	///////////////////
@@ -83,7 +83,7 @@ async function main() {
 	console.log(`Investor 1 Swaps...\n`)
 
 	// Investor approves all tokens
-	transaction = await kal.connect(investor1).approve(amm.address, tokens(10))
+	transaction = await dapp.connect(investor1).approve(amm.address, tokens(10))
 	await transaction.wait()
 
 	// Investor swaps 1 token
@@ -96,7 +96,7 @@ async function main() {
 
 	console.log(`Investor 2 Swaps... \n`)
 		// Investor approves all tokens
-	transaction = await dapp.connect(investor2).approve(amm.address, tokens(10))
+	transaction = await kal.connect(investor2).approve(amm.address, tokens(10))
 	await transaction.wait()
 
 	// Investor swaps 1 token
@@ -111,7 +111,7 @@ async function main() {
 	console.log(`Investor 3 Swaps... \n`)
 
 	// Investor approves all tokens
-	transaction = await kal.connect(investor3).approve(amm.address, tokens(10))
+	transaction = await dapp.connect(investor3).approve(amm.address, tokens(10))
 	await transaction.wait()
 
 	// Investor swaps all 10 tokens
@@ -125,7 +125,7 @@ async function main() {
 	console.log(`Investor 4 Swaps...\n`)
 
 	// Investor approves all tokens
-	transaction = await dapp.connect(investor4).approve(amm.address, tokens(10))
+	transaction = await kal.connect(investor4).approve(amm.address, tokens(10))
 	await transaction.wait()
 
 	// Investor swaps 5 tokens
