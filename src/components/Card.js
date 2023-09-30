@@ -5,6 +5,7 @@ import { Card as BootstrapCard } from 'react-bootstrap';
 import SwapImage from '../images/Swap-01.jpg';
 import WalletImage from '../images/Wallet-01.jpg';
 import CommunityImage from '../images/Community-03.jpg';
+import SafetyImage from '../images/Safety-04.jpg';
 
 function BasicExample() {
   return (
@@ -38,6 +39,17 @@ function BasicExample() {
             <BootstrapCard.Title>Swap thousands of tokens</BootstrapCard.Title>
             <BootstrapCard.Text>
               With the constant expansion of the Crypto ecosystem. You can swap your favorite tokens for new ones.
+            </BootstrapCard.Text>
+          </BootstrapCard.Body>
+        </BootstrapCard>
+      </Col>
+      <Col>
+        <BootstrapCard style={{ width: '18rem' }} className='mx-auto my-4'>
+          <BootstrapCard.Img variant="top" src={SafetyImage} />
+          <BootstrapCard.Body>
+            <BootstrapCard.Title>Safely swap your tokens</BootstrapCard.Title>
+            <BootstrapCard.Text>
+              As times change quickly, swapping tokens safely is our utmost priority. Feel assured your tokens are safe.
             </BootstrapCard.Text>
           </BootstrapCard.Body>
         </BootstrapCard>
