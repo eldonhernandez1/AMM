@@ -1,8 +1,20 @@
 import { ethers } from 'ethers'
 
-import { setProvider, setNetwork, setAccount } from '../store/reducers/provider';
-import { setContracts, setSymbols, balancesLoaded } from '../store/reducers/tokens';
-import amm, { setContract } from '../store/reducers/amm';
+import {
+    setProvider,
+    setNetwork,
+    setAccount
+} from '../store/reducers/provider';
+
+import {
+    setContracts,
+    setSymbols,
+    balancesLoaded
+} from '../store/reducers/tokens';
+import {
+    setContract,
+    sharesLoaded
+} from '../store/reducers/amm';
 
 import TOKEN_ABI from "../abis/Token.json";
 import AMM_ABI from "../abis/AMM.json";
@@ -26,8 +38,8 @@ export const loadAccount = async (dispatch) => {
     // Fetch accounts
     const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' })
     const account = ethers.utils.getAddress(accounts[0])
-    dispatch(setAccount(account)) 
-    
+    dispatch(setAccount(account))
+
     return account
 }
 //////////////////////
@@ -42,9 +54,9 @@ export const loadTokens = async (provider, chainID, dispatch) => {
     dispatch(setSymbols([await kal.symbol(), await dapp.symbol()]))
 }
 export const loadAMM = async (provider, chainID, dispatch) => {
-    const AMM = new ethers.Contract(config[chainID].amm.address, AMM_ABI, provider)
+    const amm = new ethers.Contract(config[chainID].amm.address, AMM_ABI, provider)
 
-    dispatch(setContract(amm))
+    dispatch(setContracts(amm))
     return amm
 }
 
@@ -56,9 +68,11 @@ export const loadBalances = async (tokens, account, dispatch) => {
     const balance1 = await tokens[0].balanceOf(account)
     const balance2 = await tokens[1].balanceOf(account)
 
-    dispatch(balancesLoaded(
-        balance1,
-        balance2
-    ))
-}
+    dispatch(balancesLoaded([
+        ethers.utils.formatUnits(balance1.toString(), 'ether'),
+        ethers.utils.formatUnits(balance2.toString(), 'ether')
+    ]))
+    const shares = await amm.shares(account)
+    dispatch(sharesLoaded(ethers.utils.formatUnits(shares.toString(), 'ether')))
 
+}
