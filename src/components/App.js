@@ -53,8 +53,8 @@ function App() {
       <Row>
         <img src={Hero} style={{ borderRadius: '10px' }} alt="KalinaSwap Hero"/>
       </Row>
-      <h1 className='my-4 p-4 text-center text-warning'>Easily swap tokens.</h1>
-      <h2 className='my-2 text-center text-warning'>Knowing your tokens are safe and secure.</h2>
+      <h1 className='my-2 p-4 text-center text-warning'>Easily swap tokens...</h1>
+      <h2 className='my-1 text-center text-warning'>...knowing your tokens are safe and secure.</h2>
       <Card />
                 <>
                 <p className='text-center text-white my-4'><strong>Your ETH Balance:</strong> 0 ETH</p>
