@@ -1,6 +1,12 @@
 import { ethers } from 'ethers'
 
 import { setProvider, setNetwork, setAccount } from '../store/reducers/provider';
+import { setContracts, setSymbols, balancesLoaded } from '../store/reducers/tokens';
+import amm, { setContract } from '../store/reducers/amm';
+
+import TOKEN_ABI from "../abis/Token.json";
+import AMM_ABI from "../abis/AMM.json";
+import config from "../config.json"
 
 export const loadProvider = (dispatch) => {
     const provider = new ethers.providers.Web3Provider(window.ethereum)
@@ -24,3 +30,35 @@ export const loadAccount = async (dispatch) => {
     
     return account
 }
+//////////////////////
+/// LOAD CONTRACTS ///
+//////////////////////
+
+export const loadTokens = async (provider, chainID, dispatch) => {
+    const kal = new ethers.Contract(config[chainID].kal.address, TOKEN_ABI, provider)
+    const dapp = new ethers.Contract(config[chainID].dapp.address, TOKEN_ABI, provider)
+
+    dispatch(setContracts([kal, dapp]))
+    dispatch(setSymbols([await kal.symbol(), await dapp.symbol()]))
+}
+export const loadAMM = async (provider, chainID, dispatch) => {
+    const AMM = new ethers.Contract(config[chainID].amm.address, AMM_ABI, provider)
+
+    dispatch(setContract(amm))
+    return amm
+}
+
+//////////////////////////////
+/// LOAD BALANCES & SHARES ///
+//////////////////////////////
+
+export const loadBalances = async (tokens, account, dispatch) => {
+    const balance1 = await tokens[0].balanceOf(account)
+    const balance2 = await tokens[1].balanceOf(account)
+
+    dispatch(balancesLoaded(
+        balance1,
+        balance2
+    ))
+}
+

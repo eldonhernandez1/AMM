@@ -1,4 +1,4 @@
-"abi": [
+[
   {
     "inputs": [
       {
@@ -63,7 +63,7 @@
       {
         "indexed": false,
         "internalType": "uint256",
-        "name": "timestamps",
+        "name": "timestamp",
         "type": "uint256"
       }
     ],
@@ -347,4 +347,4 @@
     "stateMutability": "view",
     "type": "function"
   }
-],
+]

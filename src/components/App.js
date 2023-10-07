@@ -8,7 +8,12 @@ import Navigation from './Navigation';
 import Loading from './Loading';
 import Card from './Card';
 
-import { loadProvider, loadNetwork, loadAccount } from '../store/interactions';
+import { 
+  loadProvider, 
+  loadNetwork, 
+  loadAccount,
+  loadTokens,
+  loadAMM } from '../store/interactions';
 
 // Hero image
 import Hero from '../images/kalina_AMM_hero.jpg'
@@ -30,6 +35,10 @@ function App() {
 
     // Fetch accounts
     await loadAccount(dispatch)
+
+    // Initiate load contracts
+    await loadTokens(provider, chainID, dispatch)
+    await loadAMM(provider, chainID, dispatch)
   }
 
   useEffect(() => {
