@@ -1,11 +1,16 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useCallback } from 'react'
 import { useDispatch } from 'react-redux';
+import { HashRouter, Routes, Route } from 'react-router-dom';
 import { Container, Row } from 'react-bootstrap'
-import { ethers } from 'ethers'
+// import { ethers } from 'ethers'
 
 // Components
 import Navigation from './Navigation';
-import Loading from './Loading';
+import Tabs from './Tabs';
+import Deposit from './Deposit';
+import Swap from './Swap';
+import Withdraw from './Withdraw';
+import Charts from './Charts';
 import Card from './Card';
 
 import {
@@ -28,9 +33,9 @@ import Hero from '../images/kalina_AMM_hero.jpg'
 function App() {
   const dispatch = useDispatch()
 
-  const loadBlockchainData = async () => {
+  const loadBlockchainData = useCallback(async () => {
     // Initiate provider
-    const provider = await loadProvider(dispatch)
+    const provider = await loadProvider(dispatch);
 
     // Fetch current network's chainID (e.g. Hardhat: 31337, kovan: 42)
     const chainID = await loadNetwork(provider, dispatch)
@@ -48,28 +53,39 @@ function App() {
     // Initiate load contracts
     await loadTokens(provider, chainID, dispatch)
     await loadAMM(provider, chainID, dispatch)
-  }
+    
+  },[dispatch]);
 
   useEffect(() => {
-    loadBlockchainData()
-
-  }
-    , []);
+    loadBlockchainData();
+  }, [loadBlockchainData]);
+  
 
   return (
     <Container>
-      <Navigation />
+      
+        <Navigation />
+      
+
+     
       <Row>
         <img src={Hero} style={{ borderRadius: '10px' }} alt="KalinaSwap Hero" />
       </Row>
       <h1 className='my-2 p-4 text-center text-warning'>Easily swap tokens...</h1>
       <h2 className='my-1 text-center text-warning'>...knowing your tokens are safe and secure.</h2>
-      <Card />
-      <>
-        <p className='text-center text-white my-4'><strong>Your ETH Balance:</strong> 0 ETH</p>
-        <p className='text-center text-white my-4'>Edit App.js to add your code here.</p>
-      </>
-      <Loading />
+      
+       <HashRouter>
+          <Tabs />
+          <Routes>
+          <Route exact path="/" element={<Swap />} />
+            <Route path="/deposit" element={<Deposit />} />
+            <Route exact path="/withdraw" element={<Withdraw />} />
+            <Route path="/charts" element={<Charts />} />
+          </Routes>
+      </HashRouter>
+     
+     <Card />
+      
     </Container>
   )
 }

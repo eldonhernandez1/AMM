@@ -56,7 +56,7 @@ export const loadTokens = async (provider, chainID, dispatch) => {
 export const loadAMM = async (provider, chainID, dispatch) => {
     const amm = new ethers.Contract(config[chainID].amm.address, AMM_ABI, provider)
 
-    dispatch(setContracts(amm))
+    dispatch(setContract(amm))
     return amm
 }
 
@@ -64,7 +64,7 @@ export const loadAMM = async (provider, chainID, dispatch) => {
 /// LOAD BALANCES & SHARES ///
 //////////////////////////////
 
-export const loadBalances = async (tokens, account, dispatch) => {
+export const loadBalances = async (tokens, account, dispatch, amm) => {
     const balance1 = await tokens[0].balanceOf(account)
     const balance2 = await tokens[1].balanceOf(account)
 
