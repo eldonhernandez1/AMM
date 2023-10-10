@@ -1,7 +1,7 @@
 import { useEffect, useCallback } from 'react'
 import { useDispatch } from 'react-redux';
 import { HashRouter, Routes, Route } from 'react-router-dom';
-import { Container, Row } from 'react-bootstrap'
+import { Container } from 'react-bootstrap'
 // import { ethers } from 'ethers'
 
 // Components
@@ -12,6 +12,7 @@ import Swap from './Swap';
 import Withdraw from './Withdraw';
 import Charts from './Charts';
 import Card from './Card';
+import HeroCard from './HeroCard';
 
 import {
   loadProvider,
@@ -20,9 +21,6 @@ import {
   loadTokens,
   loadAMM
 } from '../store/interactions';
-
-// Hero image
-import Hero from '../images/kalina_AMM_hero.jpg'
 
 // ABIs: Import your contract ABIs here
 // import TOKEN_ABI from '../abis/Token.json'
@@ -67,12 +65,7 @@ function App() {
         <Navigation />
       
 
-     
-      <Row>
-        <img src={Hero} style={{ borderRadius: '10px' }} alt="KalinaSwap Hero" />
-      </Row>
-      <h1 className='my-2 p-4 text-center text-warning'>Easily swap tokens...</h1>
-      <h2 className='my-1 text-center text-warning'>...knowing your tokens are safe and secure.</h2>
+      <HeroCard />     
       
        <HashRouter>
           <Tabs />

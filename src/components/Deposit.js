@@ -1,6 +1,6 @@
 const Deposit = () => {
     return (
-        <div>Deposit</div>
+        <div className="text-white">Deposit</div>
     );
 }
 

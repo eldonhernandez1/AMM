@@ -1,7 +1,9 @@
+/* index.css */
+
+/* Define the font-family for the body copy */
 body {
   margin: 0;
-  font-family: 'Dosis', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+  font-family: 'Onest', Tofu;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-image: url(../src/images/kalina_AMM_bg.jpg);
@@ -9,6 +11,11 @@ body {
   background-attachment: fixed;
 }
 
-code {
-  font-family: 'Dosis', Tofu, monospace;
+.dosis-font {
+  font-family: 'Dosis', sans-serif;
 }
+.onest-font {
+  font-family: 'Onest', Tofu;
+}
+@import url('https://fonts.googleapis.com/css2?family=Dosis&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Onest&display=swap');
