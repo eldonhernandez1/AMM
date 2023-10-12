@@ -28,6 +28,7 @@ const Navigation = () => {
       method: 'wallet_switchEthereumChain',
       params: [{ chainId: e.target.value}],
     })
+    console.log(chainId)
   }
   return (
     // Navigation Bar
@@ -51,7 +52,7 @@ const Navigation = () => {
            >
             <option value="0" disabled>Select Network</option> 
             <option value="0x7A69">Localhost</option> 
-            <option value="0x5">Goreli</option> 
+            <option value="0xaa36a7">Sepolia</option> 
           </Form.Select>
           {account ? (
           <Navbar.Text className='d-flex align-items-center text-black'>

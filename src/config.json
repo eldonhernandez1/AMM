@@ -9,5 +9,16 @@
     "amm": {
       "address": "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0"
     }
+  },
+  "11155111": {
+    "dapp": {
+      "address": "0x9447b87cF90cFC4AdDDC10Ce3b4F0A3C0665dF13"
+    },
+    "kal": {
+      "address": "0x5a0B05137aC2a1af7A1F9a325767421084AA95FC"
+    },
+    "amm": {
+      "address": "0x665a767ACC13940D890D123e1060E280f00856da"
+    }
   }
 }

@@ -8,7 +8,7 @@ function BasicExample() {
     <Container>
         <Row>
 
-            <Col lassName='pt-4'>
+            <Col className='pt-4'>
                 <h1 className='pt-4 dosis-font' style={{ fontSize: '100px',  color: '#ffffff', lineHeight: '110px', fontWeight:'bold' }}>Easily Swap Tokens</h1>
                 <h2 className='pt-4 onest-font' style={{ fontSize: '55px',  color: '#ffffff', lineHeight: '60px' }}>Safely exchange tokens on the most user-friendly DApp.</h2>
             </Col>

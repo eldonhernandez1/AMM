@@ -35,8 +35,8 @@ function App() {
     // Initiate provider
     const provider = await loadProvider(dispatch);
 
-    // Fetch current network's chainID (e.g. Hardhat: 31337, kovan: 42)
-    const chainID = await loadNetwork(provider, dispatch)
+    // Fetch current network's chainId (e.g. Hardhat: 31337, kovan: 42)
+    const chainId = await loadNetwork(provider, dispatch)
 
     // Reload page when network changes
     window.ethereum.on('chainChanged', () => {
@@ -49,8 +49,8 @@ function App() {
     })
 
     // Initiate load contracts
-    await loadTokens(provider, chainID, dispatch)
-    await loadAMM(provider, chainID, dispatch)
+    await loadTokens(provider, chainId, dispatch)
+    await loadAMM(provider, chainId, dispatch)
     
   },[dispatch]);
 

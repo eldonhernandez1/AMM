@@ -28,10 +28,10 @@ export const loadProvider = (dispatch) => {
 }
 
 export const loadNetwork = async (provider, dispatch) => {
-    const { chainID } = await provider.getNetwork()
-    dispatch(setNetwork(chainID))
-
-    return chainID
+    const { chainId } = await provider.getNetwork()
+    dispatch(setNetwork(chainId))
+console.log(chainId)
+    return chainId
 }
 
 export const loadAccount = async (dispatch) => {
@@ -46,15 +46,15 @@ export const loadAccount = async (dispatch) => {
 /// LOAD CONTRACTS ///
 //////////////////////
 
-export const loadTokens = async (provider, chainID, dispatch) => {
-    const kal = new ethers.Contract(config[chainID].kal.address, TOKEN_ABI, provider)
-    const dapp = new ethers.Contract(config[chainID].dapp.address, TOKEN_ABI, provider)
+export const loadTokens = async (provider, chainId, dispatch) => {
+    const kal = new ethers.Contract(config[chainId].kal.address, TOKEN_ABI, provider)
+    const dapp = new ethers.Contract(config[chainId].dapp.address, TOKEN_ABI, provider)
 
     dispatch(setContracts([kal, dapp]))
     dispatch(setSymbols([await kal.symbol(), await dapp.symbol()]))
 }
-export const loadAMM = async (provider, chainID, dispatch) => {
-    const amm = new ethers.Contract(config[chainID].amm.address, AMM_ABI, provider)
+export const loadAMM = async (provider, chainId, dispatch) => {
+    const amm = new ethers.Contract(config[chainId].amm.address, AMM_ABI, provider)
 
     dispatch(setContract(amm))
     return amm
@@ -64,7 +64,7 @@ export const loadAMM = async (provider, chainID, dispatch) => {
 /// LOAD BALANCES & SHARES ///
 //////////////////////////////
 
-export const loadBalances = async (tokens, account, dispatch, amm) => {
+export const loadBalances = async (amm, tokens, account, dispatch) => {
     const balance1 = await tokens[0].balanceOf(account)
     const balance2 = await tokens[1].balanceOf(account)
 
