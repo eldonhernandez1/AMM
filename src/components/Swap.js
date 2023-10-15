@@ -14,7 +14,7 @@ import Alert from "./Alert"
 
 import {
     swap,
-    loadBalances
+    loadBalances,
   } from "../store/interactions"
   
 const Swap = () => {
@@ -190,9 +190,7 @@ const Swap = () => {
                             <Spinner animation="border" style={{ display: 'block', margin: '0 auto' }}/>
                             ) : (
                               <Button type="submit">Swap</Button>  
-                            )
-                            
-                        }
+                            )}
                             
                             <Form.Text muted>
                                 Exchange Rate: {price}
@@ -225,7 +223,7 @@ const Swap = () => {
 
             ) : !isSuccess && showAlert ? (
                 <Alert
-                message={'Swap fFailed'}
+                message={'Swap Failed'}
                 transactionHash={null}
                 variant={'danger'}
                 setShowAlert={setShowAlert}
