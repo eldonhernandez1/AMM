@@ -13,7 +13,10 @@ import {
 } from '../store/reducers/tokens';
 import {
     setContract,
-    sharesLoaded
+    sharesLoaded,
+    swapRequest,
+    swapSuccess,
+    swapFail
 } from '../store/reducers/amm';
 
 import TOKEN_ABI from "../abis/Token.json";
@@ -30,7 +33,7 @@ export const loadProvider = (dispatch) => {
 export const loadNetwork = async (provider, dispatch) => {
     const { chainId } = await provider.getNetwork()
     dispatch(setNetwork(chainId))
-console.log(chainId)
+
     return chainId
 }
 
@@ -74,5 +77,32 @@ export const loadBalances = async (amm, tokens, account, dispatch) => {
     ]))
     const shares = await amm.shares(account)
     dispatch(sharesLoaded(ethers.utils.formatUnits(shares.toString(), 'ether')))
+
+}
+//////////////////////////////
+//////////// SWAP ////////////
+//////////////////////////////
+
+export const swap = async (provider, amm, token, symbol, amount, dispatch) => {
+    try {
+        dispatch(swapRequest())
+        let transaction
+
+        const signer = await provider.getSigner()
+
+        transaction = await token.connect(signer).approve(amm.address, amount)
+        await transaction.wait()
+
+        if (symbol === 'KAL') {
+            transaction = await amm.connect(signer).swapToken1(amount)
+        } else {
+            transaction = await amm.connect(signer).swapToken2(amount)
+        }
+        await transaction.wait()
+
+        dispatch(swapSuccess(transaction.hash))
+    } catch (error) {
+        dispatch(swapFail())
+    }
 
 }

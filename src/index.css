@@ -19,3 +19,11 @@ body {
 }
 @import url('https://fonts.googleapis.com/css2?family=Dosis&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Onest&display=swap');
+
+.alert {
+  max-width: 300px;
+  position: absolute;
+  bottom: 100px;
+  right: 100px;
+  padding: 50px;
+}
