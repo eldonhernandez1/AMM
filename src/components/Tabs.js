@@ -5,7 +5,7 @@ const Tabs = () => {
     return (
         <Nav className="text-white justify-content-center my-4" variant='pills' defaultActiveKey="/">
             <LinkContainer to="/">
-                <Nav.Link>Swap</Nav.Link>
+                <Nav.Link className='text-white'>Swap</Nav.Link>
             </LinkContainer>
 
             <LinkContainer to="/deposit">

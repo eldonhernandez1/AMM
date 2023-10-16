@@ -14,12 +14,12 @@ import {
 import {
     setContract,
     sharesLoaded,
+    withdrawFail,
+    withdrawSuccess,
+    withdrawRequest,
     swapRequest,
     swapSuccess,
-    swapFail,
-    depositFail,
-    depositSuccess,
-    depositRequest
+    swapFail
 } from '../store/reducers/amm';
 
 import TOKEN_ABI from "../abis/Token.json";
@@ -80,14 +80,13 @@ export const loadBalances = async (amm, tokens, account, dispatch) => {
     ]))
     const shares = await amm.shares(account)
     dispatch(sharesLoaded(ethers.utils.formatUnits(shares.toString(), 'ether')))
-
 }
 //////////////////////////////
 //////// ADD LIQUIDITY ///////
 //////////////////////////////
 export const addLiquidity = async (provider, amm, tokens, amounts, dispatch) => {
     try {
-    dispatch(depositRequest())
+    dispatch(withdrawRequest())
 
     const signer = await provider.getSigner()
 
@@ -102,11 +101,29 @@ export const addLiquidity = async (provider, amm, tokens, amounts, dispatch) => 
     transaction = await amm.connect(signer).addLiquidity(amounts[0], amounts[1])
     await transaction.wait()   
 
-    dispatch(depositSuccess(transaction.hash))
+    dispatch(withdrawSuccess(transaction.hash))
     } catch (error) {
-        dispatch(depositFail())
+        dispatch(withdrawFail())
     }
 
+}
+
+//////////////////////////////
+////// REMOVE LIQUIDITY //////
+//////////////////////////////
+export const removeLiquidity = async (provider, amm, shares, dispatch) => {
+    try {
+    dispatch(withdrawRequest())
+
+    const signer = await provider.getSigner()
+
+    let transaction = await amm.connect(signer).removeLiquidity(shares)
+    await transaction.wait()
+
+    dispatch(withdrawSuccess(transaction.hash))
+    } catch (error) {
+        dispatch(withdrawFail())
+    }
 }
 
 //////////////////////////////

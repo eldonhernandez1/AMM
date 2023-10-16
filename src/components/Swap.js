@@ -118,10 +118,10 @@ const Swap = () => {
     }, [inputToken, outputToken]);
 
     return (
-        <div className="text-white">
+        <div>
             <Card style={{ maxWidth: '450px' }} className="mx-auto px-4 text-black">
                 {account ? (
-                    <Form onSubmit={swapHandler} style={{ maxWidth: '450px', margin: '50px auto' }} name="Swap">
+                    <Form onSubmit={swapHandler} style={{ maxWidth: '450px', margin: '50px auto' }} name="Swap" className="text-white">
                         <Row className="my-3">
                             <div className="d-flex justify-content-between">
                                 <Form.Label style={{ fontWeight: 'bold' }}>

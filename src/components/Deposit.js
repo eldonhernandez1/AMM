@@ -28,7 +28,7 @@ const symbols = useSelector(state => state.tokens.symbols)
 const balances = useSelector(state => state.tokens.balances)
 
 const amm = useSelector(state => state.amm.contract)
-const isDepositing = useSelector(state => state.amm.depositing.isDeposting)
+const isDepositing = useSelector(state => state.amm.depositing.isDepositing)
 const isSuccess = useSelector(state => state.amm.depositing.isSuccess)
 const transactionHash = useSelector(state => state.amm.depositing.transactionHash)
 const dispatch = useDispatch()
@@ -80,7 +80,7 @@ const depositHandler = async (e) => {
         <div className="text-white">
             <Card style={{ maxWidth: '450px' }} className="mx-auto px-4 text-black">
                 {account ? (
-                    <Form onSubmit={depositHandler} style={{ maxWidth: '450px', margin: '50px auto' }} name="Swap">
+                    <Form onSubmit={depositHandler} style={{ maxWidth: '450px', margin: '50px auto' }} name="Deposit">
                         <Row>
                             <Form.Text className="text-end my-2" muted>
                                 Balance: {balances[0]}
@@ -93,6 +93,7 @@ const depositHandler = async (e) => {
                                     step="any"
                                     id="token1"
                                     onChange={(e) => amountHandler}
+                                    value={token2Amount === 0 ? "" : token2Amount}
                                 />
                                 <InputGroup.Text style={{ width: "100px" }} className="justify-content-center">
                                 { symbols && symbols[0] }
@@ -110,7 +111,6 @@ const depositHandler = async (e) => {
                                     step="any"
                                     id="token2"
                                     onChange={(e) => amountHandler(e)}
-                                    value={token2Amount === 0 ? "" : token2Amount}
                                 />
                                 <InputGroup.Text style={{ width: "100px" }} className="justify-content-center">
                                 { symbols && symbols[1] }  
