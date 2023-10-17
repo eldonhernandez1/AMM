@@ -14,9 +14,13 @@ import {
 import {
     setContract,
     sharesLoaded,
-    withdrawFail,
-    withdrawSuccess,
+    swapsLoaded,
+    depositRequest,
+    depositSuccess,
+    depositFail,
     withdrawRequest,
+    withdrawSuccess,
+    withdrawFail,
     swapRequest,
     swapSuccess,
     swapFail
@@ -74,11 +78,12 @@ export const loadBalances = async (amm, tokens, account, dispatch) => {
     const balance1 = await tokens[0].balanceOf(account)
     const balance2 = await tokens[1].balanceOf(account)
 
+    const shares = await amm.shares(account);
+
     dispatch(balancesLoaded([
         ethers.utils.formatUnits(balance1.toString(), 'ether'),
         ethers.utils.formatUnits(balance2.toString(), 'ether')
-    ]))
-    const shares = await amm.shares(account)
+    ]));
     dispatch(sharesLoaded(ethers.utils.formatUnits(shares.toString(), 'ether')))
 }
 //////////////////////////////
@@ -86,28 +91,27 @@ export const loadBalances = async (amm, tokens, account, dispatch) => {
 //////////////////////////////
 export const addLiquidity = async (provider, amm, tokens, amounts, dispatch) => {
     try {
-    dispatch(withdrawRequest())
-
-    const signer = await provider.getSigner()
-
-    let transaction
-
-    transaction = await tokens[0].connect(signer).approve(amm.address, amounts[0])
-    await transaction.wait()
-
-    transaction = await tokens[1].connect(signer).approve(amm.address, amounts[0])
-    await transaction.wait()
-
-    transaction = await amm.connect(signer).addLiquidity(amounts[0], amounts[1])
-    await transaction.wait()   
-
-    dispatch(withdrawSuccess(transaction.hash))
+      dispatch(depositRequest())
+  
+      const signer = await provider.getSigner()
+  
+      let transaction
+  
+      transaction = await tokens[0].connect(signer).approve(amm.address, amounts[0])
+      await transaction.wait()
+  
+      transaction = await tokens[1].connect(signer).approve(amm.address, amounts[1])
+      await transaction.wait()
+  
+      transaction = await amm.connect(signer).addLiquidity(amounts[0], amounts[1])
+      await transaction.wait()
+  
+      dispatch(depositSuccess(transaction.hash))
     } catch (error) {
-        dispatch(withdrawFail())
+      dispatch(depositFail())
     }
-
-}
-
+  }
+  
 //////////////////////////////
 ////// REMOVE LIQUIDITY //////
 //////////////////////////////
@@ -154,3 +158,19 @@ export const swap = async (provider, amm, token, symbol, amount, dispatch) => {
     }
 
 }
+
+//////////////////////////////
+////// LOAD ALL SWAPS ////////
+//////////////////////////////
+
+export const loadAllSwaps = async (provider, amm, dispatch) => {
+    const block = await provider.getBlockNumber()
+  
+    const swapStream = await amm.queryFilter('Swap', 0, block)
+    const swaps = swapStream.map(event => {
+      return { hash: event.transactionHash, args: event.args }
+    })
+  
+    dispatch(swapsLoaded(swaps))
+  }
+  

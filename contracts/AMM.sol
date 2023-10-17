@@ -88,12 +88,16 @@ contract AMM {
     }
 
     // Returns amount of token2 received when swapping token1
-    function calculateToken1Swap(uint256 _token1Amount)
-        public
-        view
-        returns (uint256 token2Amount)
-    {
-        uint256 token1After = token1Balance + _token1Amount;
+function calculateToken1Swap(uint256 _token1Amount)
+    public
+    view
+    returns (uint256 token2Amount)
+{
+    uint256 token1After = token1Balance + _token1Amount;
+
+    if (token1After == 0) {
+        token2Amount = 0; // Return zero if division by zero would occur
+    } else {
         uint256 token2After = K / token1After;
         token2Amount = token2Balance - token2After;
 
@@ -102,8 +106,10 @@ contract AMM {
             token2Amount--;
         }
 
-        require(token2Amount < token2Balance, "swap amount to large");
+        require(token2Amount < token2Balance, "swap amount too large");
     }
+}
+
 
     function swapToken1(uint256 _token1Amount)
         external

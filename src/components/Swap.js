@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import Card from "react-bootstrap/Card";
 import Form from "react-bootstrap/Form";
@@ -94,29 +94,24 @@ const Swap = () => {
             setShowAlert(true)
     }
 
-    const getPrice = async () => {
+    const getPrice = useCallback(async () => {
         if (inputToken === outputToken) {
-            setPrice(0)
-            return
+            setPrice(0);
+            return;
         }
         if (inputToken === 'KAL') {
-            setPrice(await amm.token2Balance() / await amm.token1Balance())
+            setPrice(await amm.token2Balance() / await amm.token1Balance());
         } else {
-
-            setPrice(await amm.token1Balance() / await amm.token2Balance())
+            setPrice(await amm.token1Balance() / await amm.token2Balance());
         }
-
-    }
+    }, [inputToken, outputToken, amm]);
 
     useEffect(() => {
-        console.log("inputToken:", inputToken);
-        console.log("outputToken:", outputToken);
-
-        if (inputToken && outputToken) {
-            getPrice()
+        if(inputToken && outputToken) {
+          getPrice()
         }
-    }, [inputToken, outputToken]);
-
+      }, [inputToken, outputToken, getPrice]);
+        
     return (
         <div>
             <Card style={{ maxWidth: '450px' }} className="mx-auto px-4 text-black">
