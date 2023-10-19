@@ -4,13 +4,11 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Blockies from 'react-blockies';
 
-import logo from '../logo.png';
-
 import { loadAccount, loadBalances } from '../store/interactions';
 import config from '../config.json';
 // import amm from '../store/reducers/amm';
 
-const Navigation = () => {
+const ConnectBtn = () => {
   const chainId = useSelector(state => state.provider.chainId)
   const account = useSelector(state => state.provider.account)
   const tokens = useSelector(state => state.tokens.contracts)
@@ -32,15 +30,8 @@ const Navigation = () => {
   }
   return (
     // Navigation Bar
-    <Navbar bg='white' expand='lg'>
-      <img
-        alt="logo"
-        src={logo}
-        width="40"
-        height="40"
-        className="d-inline-block align-top mx-3"
-      />
-      <Navbar.Brand href="/">KalinaSwap</Navbar.Brand>
+    <Navbar expand='lg' style={{ maxWidth: '300px', margin: '0 auto' }}>
+      
       <Navbar.Toggle aria-controls='nav' />
       <Navbar.Collapse id='nav' className="justify-content-end">
         <div className='d-flex justify-content-end'>
@@ -55,7 +46,7 @@ const Navigation = () => {
             <option value="0xaa36a7">Sepolia</option> 
           </Form.Select>
           {account ? (
-          <Navbar.Text className='d-flex align-items-center text-black'>
+          <Navbar.Text className='d-flex align-items-center text-white'>
             {account.slice(0, 5) + '...' + account.slice(38, 42)}
             <Blockies
               seed={account}
@@ -78,4 +69,4 @@ const Navigation = () => {
   );
 }
 
-export default Navigation;
+export default ConnectBtn;
