@@ -84,7 +84,6 @@ export const loadBalances = async (amm, tokens, account, dispatch) => {
     ]))
     
     const shares = await amm.shares(account);
-    
     dispatch(sharesLoaded(ethers.utils.formatUnits(shares.toString(), 'ether')))
 }
 //////////////////////////////

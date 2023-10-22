@@ -2,8 +2,8 @@
   "_format": "hh-sol-cache-2",
   "files": {
     "/Users/eldonhernandez/Dapp University Projects/AMM/contracts/AMM.sol": {
-      "lastModificationDate": 1695862955701,
-      "contentHash": "25e22d58c1da234333376e0ae69bb812",
+      "lastModificationDate": 1697763582573,
+      "contentHash": "8d9b8468015dcf81ee0c9bab93b51d2d",
       "sourceName": "contracts/AMM.sol",
       "solcConfig": {
         "version": "0.8.9",

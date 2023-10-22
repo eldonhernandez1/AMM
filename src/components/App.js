@@ -1,7 +1,7 @@
-import { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
-import { HashRouter, Routes, Route } from 'react-router-dom';
-import { Container } from 'react-bootstrap';
+import { useEffect, useCallback } from 'react'
+import { useDispatch } from 'react-redux'
+import { HashRouter, Routes, Route } from 'react-router-dom'
+import { Container } from 'react-bootstrap'
 
 // Components
 import Navigation from './Navigation';
@@ -16,39 +16,38 @@ import {
   loadNetwork,
   loadAccount,
   loadTokens,
-  loadAMM,
-} from '../store/interactions';
+  loadAMM
+} from '../store/interactions'
 
 function App() {
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    const loadBlockchainData = async () => {
-      // Initiate provider
-      const provider = await loadProvider(dispatch);
+  const loadBlockchainData = useCallback(async () => {
+    // Initiate provider
+    const provider = await loadProvider(dispatch);
 
-      // Fetch current network's chainId (e.g. hardhat: 31337, kovan: 42)
-      const chainId = await loadNetwork(provider, dispatch);
+    // Fetch current network's chainId (e.g. Hardhat: 31337, kovan: 42)
+    const chainId = await loadNetwork(provider, dispatch);
 
-      // Reload page when network changes
-      window.ethereum.on('chainChanged', () => {
-        window.location.reload();
-      });
+    // Reload page when network changes
+    window.ethereum.on('chainChanged', () => {
+      window.location.reload();
+    });
 
-      // Fetch current account from Metamask when changed
-      window.ethereum.on('accountsChanged', async () => {
-        await loadAccount(dispatch);
-      });
+    // Fetch account current account from Metamask when changed
+    window.ethereum.on('accountsChanged', async () => {
+      await loadAccount(dispatch);
+    });
 
-      // Initiate contracts
-      await loadTokens(provider, chainId, dispatch);
-      await loadAMM(provider, chainId, dispatch);
-    };
-
-    loadBlockchainData();
+    // Initiate load contracts
+    await loadTokens(provider, chainId, dispatch);
+    await loadAMM(provider, chainId, dispatch);
   }, [dispatch]);
 
-  return (
+  useEffect(() => {
+    loadBlockchainData();
+  }, [loadBlockchainData]);
+  return(
     <Container>
       <HashRouter>
 
@@ -66,7 +65,7 @@ function App() {
         </Routes>
       </HashRouter>
     </Container>
-  );
+  )
 }
 
 export default App;

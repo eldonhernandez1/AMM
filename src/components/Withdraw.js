@@ -13,7 +13,6 @@ import Alert from "./Alert"
 import {
     removeLiquidity,
     loadBalances
-    
   } from "../store/interactions"
 
 const Withdraw = () => {

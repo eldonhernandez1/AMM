@@ -1,4 +1,4 @@
-import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit';
+import { configureStore } from '@reduxjs/toolkit';
 
 import provider from '../store/reducers/provider';
 import tokens from '../store/reducers/tokens';
@@ -10,7 +10,7 @@ export const store = configureStore({
         tokens,
         amm
     },
-    middleware: getDefaultMiddlewarev =>
+    middleware: getDefaultMiddleware =>
         getDefaultMiddleware({
             serializableCheck: false,
         }),

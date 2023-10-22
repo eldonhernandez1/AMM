@@ -17,7 +17,6 @@ export const tokens = createSlice({
         balancesLoaded: (state, action) => {
             state.balances = action.payload
         }
-
     }
 })
 

@@ -43,7 +43,7 @@ const Navigation = () => {
       <Navbar.Brand href="/">KalinaSwap</Navbar.Brand>
       <Navbar.Toggle aria-controls='nav' />
       <Navbar.Collapse id='nav' className="justify-content-end">
-        <div className='d-flex justify-content-end'>
+        <div className='d-flex justify-content-end my-3'>
           <Form.Select
             aria-label="Network Selector"
             value={config[chainId] ? `0x${chainId.toString(16)}` : `0`}
@@ -64,7 +64,7 @@ const Navigation = () => {
               color="#2187D0"
               bgColor="#F1F2F9"
               spotColor="#767F92"
-              className="identicon mx-2"
+              className="identicon mx-3"
             />
           </Navbar.Text>
         ) : (
