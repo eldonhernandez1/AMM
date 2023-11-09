@@ -1,0 +1,17 @@
+{
+  "files": {
+    "main.css": "/static/css/main.645b522c.css",
+    "main.js": "/static/js/main.fed4efe0.js",
+    "static/js/787.2e117b39.chunk.js": "/static/js/787.2e117b39.chunk.js",
+    "static/media/kalina_AMM_bg.jpg": "/static/media/kalina_AMM_bg.97c2305b74ef25d9ceb4.jpg",
+    "static/media/logo.png": "/static/media/logo.5cfc8d20903643fb83a8.png",
+    "index.html": "/index.html",
+    "main.645b522c.css.map": "/static/css/main.645b522c.css.map",
+    "main.fed4efe0.js.map": "/static/js/main.fed4efe0.js.map",
+    "787.2e117b39.chunk.js.map": "/static/js/787.2e117b39.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.645b522c.css",
+    "static/js/main.fed4efe0.js"
+  ]
+}
