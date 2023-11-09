@@ -18,7 +18,7 @@ const Navigation = () => {
 
   const connectHandler = async () => {
     const account = await loadAccount(dispatch)
-    await loadBalances(amm, tokens, account, dispatch)
+    await loadBalances(amm, tokens, account, dispatch, chainId)
   }
 
   const networkHandler = async (e) => {

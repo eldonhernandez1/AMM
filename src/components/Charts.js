@@ -3,7 +3,7 @@ import { Table } from "react-bootstrap";
 import Chart from "react-apexcharts";
 import { ethers } from "ethers";
 import { options, series } from "./Charts.config";
-// import { chartSelector } from "../store/selectors";
+import { chartSelector } from "../store/selectors";
 import { useEffect } from "react";
 import Loading from "./Loading";
 
@@ -18,6 +18,8 @@ const Charts = () => {
     const symbols = useSelector(state => state.tokens.symbols)
 
     const amm = useSelector(state => state.amm.contract)
+
+    const chart = useSelector(chartSelector)
 
     const swaps = useSelector(state => state.amm.swaps)
 
@@ -36,7 +38,7 @@ const Charts = () => {
                     <Chart
                         type="line"
                         options={options}
-                        series={swaps ? swaps.series : series}
+                        series={chart ? chart.series : series}
                         width="100%"
                         height="100%"
                     />

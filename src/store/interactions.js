@@ -40,7 +40,7 @@ export const loadProvider = (dispatch) => {
 export const loadNetwork = async (provider, dispatch) => {
     const { chainId } = await provider.getNetwork()
     dispatch(setNetwork(chainId))
-
+    console.log('contacts drop', chainId)
     return chainId
 }
 
@@ -67,7 +67,7 @@ export const loadAMM = async (provider, chainId, dispatch) => {
     const amm = new ethers.Contract(config[chainId].amm.address, AMM_ABI, provider)
 
     dispatch(setContract(amm))
-    console.log('amm', amm)
+    console.log('LOADamm', amm)
     return amm
 }
 
@@ -75,51 +75,43 @@ export const loadAMM = async (provider, chainId, dispatch) => {
 /// LOAD BALANCES & SHARES ///
 //////////////////////////////
 
-export const loadBalances = async (amm, tokens, account, dispatch) => {
-    console.log('AMM', amm, 'account', account)
+export const loadBalances = async (amm, tokens, account, dispatch, chainId) => {
     try {
+        const balance1 = await tokens[0].balanceOf(account)
+        const balance2 = await tokens[1].balanceOf(account)
+        dispatch(balancesLoaded([
+            ethers.utils.formatUnits(balance1.toString(), 'ether'),
+            ethers.utils.formatUnits(balance2.toString(), 'ether')
+        ]))
+        console.log('BALANCESamm', amm, 'Balances and Shares Loaded for account:', account, 'chainId', chainId)
 
-    const balance1 = await tokens[0].balanceOf(account)
-    const balance2 = await tokens[1].balanceOf(account)
-
-    dispatch(balancesLoaded([
-        ethers.utils.formatUnits(balance1.toString(), 'ether'),
-        ethers.utils.formatUnits(balance2.toString(), 'ether')
-    ]))
-    
-    const shares = await amm.shares(account)
-    dispatch(sharesLoaded(ethers.utils.formatUnits(shares.toString(), 'ether')))
-} catch (error) {
-    console.log('failed to load balance', error)
-    return
-}
+        const shares = await amm.shares(account)
+        dispatch(sharesLoaded(ethers.utils.formatUnits(shares.toString(), 'ether')))
+    } catch (error) {
+        console.log('Failed to load balances or shares:', error)
+    }
 }
 //////////////////////////////
 //////// ADD LIQUIDITY ///////
 //////////////////////////////
 export const addLiquidity = async (provider, amm, tokens, amounts, dispatch) => {
     try {
-      dispatch(depositRequest())
-  
-      const signer = await provider.getSigner()
-  
-      let transaction
-  
-      transaction = await tokens[0].connect(signer).approve(amm.address, amounts[0])
-      await transaction.wait()
-  
-      transaction = await tokens[1].connect(signer).approve(amm.address, amounts[1])
-      await transaction.wait()
-  
-      transaction = await amm.connect(signer).addLiquidity(amounts[0], amounts[1])
-      await transaction.wait()
-  
-      dispatch(depositSuccess(transaction.hash))
+        dispatch(depositRequest())
+        const signer = await provider.getSigner()
+        let transaction
+        transaction = await tokens[0].connect(signer).approve(amm.address, amounts[0])
+        await transaction.wait()
+        transaction = await tokens[1].connect(signer).approve(amm.address, amounts[1])
+        await transaction.wait()
+        transaction = await amm.connect(signer).addLiquidity(amounts[0], amounts[1])
+        await transaction.wait()
+        dispatch(depositSuccess(transaction.hash))
+        console.log('Liquidity Added:', transaction.hash)
     } catch (error) {
-      dispatch(depositFail())
+        console.log('Add Liquidity Failed:', error)
+        dispatch(depositFail())
     }
-  }
-  
+}
 //////////////////////////////
 ////// REMOVE LIQUIDITY //////
 //////////////////////////////
