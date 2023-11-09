@@ -49,7 +49,7 @@ export const loadAccount = async (dispatch) => {
     const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' })
     const account = ethers.utils.getAddress(accounts[0])
     dispatch(setAccount(account))
-
+    console.log('load account', account)
     return account
 }
 //////////////////////
@@ -67,6 +67,7 @@ export const loadAMM = async (provider, chainId, dispatch) => {
     const amm = new ethers.Contract(config[chainId].amm.address, AMM_ABI, provider)
 
     dispatch(setContract(amm))
+    console.log('amm', amm)
     return amm
 }
 
@@ -75,6 +76,9 @@ export const loadAMM = async (provider, chainId, dispatch) => {
 //////////////////////////////
 
 export const loadBalances = async (amm, tokens, account, dispatch) => {
+    console.log('AMM', amm, 'account', account)
+    try {
+
     const balance1 = await tokens[0].balanceOf(account)
     const balance2 = await tokens[1].balanceOf(account)
 
@@ -83,8 +87,12 @@ export const loadBalances = async (amm, tokens, account, dispatch) => {
         ethers.utils.formatUnits(balance2.toString(), 'ether')
     ]))
     
-    const shares = await amm.shares(account);
+    const shares = await amm.shares(account)
     dispatch(sharesLoaded(ethers.utils.formatUnits(shares.toString(), 'ether')))
+} catch (error) {
+    console.log('failed to load balance', error)
+    return
+}
 }
 //////////////////////////////
 //////// ADD LIQUIDITY ///////

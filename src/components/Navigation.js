@@ -5,10 +5,8 @@ import Button from 'react-bootstrap/Button';
 import Blockies from 'react-blockies';
 
 import logo from '../logo.png';
-
 import { loadAccount, loadBalances } from '../store/interactions';
 import config from '../config.json';
-// import amm from '../store/reducers/amm';
 
 const Navigation = () => {
   const chainId = useSelector(state => state.provider.chainId)

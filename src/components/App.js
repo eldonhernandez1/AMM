@@ -52,9 +52,6 @@ function App() {
       <HashRouter>
 
         <Navigation />
-
-        <hr />
-
         <Tabs />
 
         <Routes>
