@@ -56,6 +56,7 @@ const Swap = () => {
       setInputAmount(e.target.value)
 
       const _token1Amount = ethers.utils.parseUnits(e.target.value, 'ether')
+      console.log("token1Amount", _token1Amount)
       const result = await amm.calculateToken1Swap(_token1Amount)
       const _token2Amount = ethers.utils.formatUnits(result.toString(), 'ether')
 

@@ -12,13 +12,13 @@
   },
   "11155111": {
     "dapp": {
-      "address": "0x9447b87cF90cFC4AdDDC10Ce3b4F0A3C0665dF13"
+      "address": "0x7f82557a4A4259C36cac1172092343184235Da1b"
     },
     "kal": {
-      "address": "0x5a0B05137aC2a1af7A1F9a325767421084AA95FC"
+      "address": "0x1a5f4d9Ba59D2C918D7324d3504288b1aB282ed4"
     },
     "amm": {
-      "address": "0x665a767ACC13940D890D123e1060E280f00856da"
+      "address": "0x5521c1412e388Fa6D3B12bdb4fC1937fe6caD629"
     }
   }
 }
